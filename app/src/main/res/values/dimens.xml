@@ -23,4 +23,9 @@
     <dimen name="text_card_title">18sp</dimen>
     <dimen name="text_body">14sp</dimen>
     <dimen name="text_small">12sp</dimen>
+
+    <!-- Plan Details -->
+    <dimen name="detail_image_height">260dp</dimen>
+    <dimen name="back_button_size">40dp</dimen>
+    <dimen name="text_detail_title">24sp</dimen>
 </resources>

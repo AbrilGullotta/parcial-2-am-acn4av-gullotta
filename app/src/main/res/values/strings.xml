@@ -26,4 +26,15 @@
     <string name="place_time_format">%1$s • %2$s</string>
     <string name="cost_format">$%1$d</string>
     <string name="btn_plan_full">Plan full</string>
+
+    <!-- Plan Details -->
+    <string name="cd_back">Back</string>
+    <string name="label_about">About this plan</string>
+    <string name="label_details">Details</string>
+    <string name="label_when">When</string>
+    <string name="label_where">Where</string>
+    <string name="label_meeting_point">Meeting point</string>
+    <string name="label_people">People</string>
+    <string name="label_cost">Estimated cost</string>
+    <string name="people_plain_format">%1$d/%2$d people</string>
 </resources>
