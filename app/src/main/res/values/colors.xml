@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Colores del template (no borrar) -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Paleta CrewUp -->
+    <color name="crew_teal">#14A3A0</color>
+    <color name="crew_teal_dark">#0B7C7A</color>
+    <color name="crew_teal_light">#D7F2F1</color>
+    <color name="crew_navy">#12263A</color>
+    <color name="crew_cream">#FAF7F2</color>
+
+    <!-- Estados -->
+    <color name="crew_green">#3BB273</color>
+    <color name="crew_green_light">#E3F5EB</color>
+    <color name="crew_orange">#E8952F</color>
+    <color name="crew_orange_light">#FDF1DE</color>
+    <color name="crew_red">#E05A5A</color>
+
+    <!-- Secundarios -->
+    <color name="crew_gray">#8A94A0</color>
+    <color name="crew_gray_light">#E6E9ED</color>
 </resources>

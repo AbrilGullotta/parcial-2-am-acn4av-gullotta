@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">CrewUp</string>
+
+    <!-- Header -->
+    <string name="slogan">Find the plan. Join the crew.</string>
+    <string name="discover_question">What\'s happening near you?</string>
+    <string name="location_default">📍 Gold Coast, Australia</string>
+
+    <!-- Tarjeta de plan -->
+    <string name="free">FREE</string>
+    <string name="people_format">👥 %1$d/%2$d people</string>
+    <string name="hosted_by_format">Hosted by %1$s ★ %2$.1f</string>
+    <string name="btn_request_join">Request to join</string>
+    <string name="btn_cancel_request">Cancel request</string>
+    <string name="status_pending">PENDING</string>
+    <string name="status_full">FULL</string>
+
+    <!-- Mis solicitudes -->
+    <string name="my_requests_title">My requests</string>
+    <string name="my_requests_empty">You haven\'t requested to join any plan yet.</string>
+
+    <!-- Mensajes -->
+    <string name="toast_request_sent">Request sent to %1$s</string>
+    <string name="toast_request_cancelled">Request cancelled</string>
 </resources>

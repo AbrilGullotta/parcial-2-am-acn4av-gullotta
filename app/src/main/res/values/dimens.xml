@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Espaciados -->
+    <dimen name="space_xs">4dp</dimen>
+    <dimen name="space_s">8dp</dimen>
+    <dimen name="space_m">16dp</dimen>
+    <dimen name="space_l">24dp</dimen>
+    <dimen name="space_xl">32dp</dimen>
+
+    <!-- Tarjetas -->
+    <dimen name="card_radius">16dp</dimen>
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="card_image_height">170dp</dimen>
+    <dimen name="chip_radius">12dp</dimen>
+
+    <!-- Botones -->
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="button_radius">24dp</dimen>
+
+    <!-- Textos -->
+    <dimen name="text_logo">30sp</dimen>
+    <dimen name="text_heading">20sp</dimen>
+    <dimen name="text_card_title">18sp</dimen>
+    <dimen name="text_body">14sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+</resources>
