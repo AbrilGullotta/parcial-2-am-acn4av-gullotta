@@ -1,5 +1,6 @@
 package com.davinci.crewup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +8,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LinearLayout containerPlans;
+    private LinearLayout containerCards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,33 +31,43 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        containerPlans = findViewById(R.id.containerPlans);
+        containerCards = findViewById(R.id.containerCards);
+    }
+
+    // onResume se ejecuta al abrir la pantalla y también al volver desde otra,
+    // así las tarjetas siempre muestran el estado actualizado
+    @Override
+    protected void onResume() {
+        super.onResume();
         mostrarPlanes();
     }
 
-    // Crea una tarjeta por cada plan y la agrega al feed
     private void mostrarPlanes() {
+        containerCards.removeAllViews();
         LayoutInflater inflater = getLayoutInflater();
         for (Plan plan : RepositorioPlanes.getPlanes()) {
-            View tarjeta = inflater.inflate(R.layout.item_plan, containerPlans, false);
+            View tarjeta = inflater.inflate(R.layout.item_plan, containerCards, false);
             completarTarjeta(tarjeta, plan);
-            containerPlans.addView(tarjeta);
+            containerCards.addView(tarjeta);
         }
     }
 
-    // Carga los datos fijos del plan en la tarjeta
     private void completarTarjeta(View tarjeta, Plan plan) {
         ImageView imgPlan = tarjeta.findViewById(R.id.imgPlan);
         TextView txtTitulo = tarjeta.findViewById(R.id.txtPlanTitle);
         TextView txtLugarHora = tarjeta.findViewById(R.id.txtPlanPlaceTime);
+        TextView txtPersonas = tarjeta.findViewById(R.id.txtPlanPeople);
         TextView txtCosto = tarjeta.findViewById(R.id.txtPlanCost);
         TextView txtOrganizador = tarjeta.findViewById(R.id.txtPlanHost);
+        TextView txtEstado = tarjeta.findViewById(R.id.txtPlanStatus);
         Button btnSolicitud = tarjeta.findViewById(R.id.btnRequestJoin);
 
         imgPlan.setImageResource(plan.getImagenRes());
         txtTitulo.setText(plan.getTitulo());
         txtLugarHora.setText(getString(R.string.place_time_format,
                 plan.getUbicacion(), plan.getFechaHora()));
+        txtPersonas.setText(getString(R.string.people_format,
+                plan.getParticipantes(), plan.getCapacidad()));
         txtOrganizador.setText(getString(R.string.hosted_by_format,
                 plan.getOrganizador(), plan.getRatingOrganizador()));
 
@@ -71,52 +81,23 @@ public class MainActivity extends AppCompatActivity {
             txtCosto.setTextColor(ContextCompat.getColor(this, R.color.crew_teal_dark));
         }
 
+        UiSolicitud.aplicarEstado(this, plan, btnSolicitud, txtEstado);
+
         btnSolicitud.setOnClickListener(v -> {
-            if (plan.getEstadoSolicitud() == EstadoSolicitud.PENDIENTE) {
-                plan.setEstadoSolicitud(EstadoSolicitud.NINGUNA);
-                Toast.makeText(this, R.string.toast_request_cancelled,
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                plan.setEstadoSolicitud(EstadoSolicitud.PENDIENTE);
-                Toast.makeText(this, getString(R.string.toast_request_sent,
-                        plan.getOrganizador()), Toast.LENGTH_SHORT).show();
-            }
-            actualizarEstado(tarjeta, plan);
+            UiSolicitud.alternar(this, plan);
+            UiSolicitud.aplicarEstado(this, plan, btnSolicitud, txtEstado);
         });
 
-        actualizarEstado(tarjeta, plan);
+        // Tocar la tarjeta abre el detalle
+        tarjeta.setOnClickListener(v -> abrirDetalle(plan));
     }
 
-    // Refleja en la tarjeta el cupo y el estado de la solicitud
-    private void actualizarEstado(View tarjeta, Plan plan) {
-        TextView txtPersonas = tarjeta.findViewById(R.id.txtPlanPeople);
-        TextView txtEstado = tarjeta.findViewById(R.id.txtPlanStatus);
-        Button btnSolicitud = tarjeta.findViewById(R.id.btnRequestJoin);
-
-        txtPersonas.setText(getString(R.string.people_format,
-                plan.getParticipantes(), plan.getCapacidad()));
-
-        boolean pendiente = plan.getEstadoSolicitud() == EstadoSolicitud.PENDIENTE;
-        txtEstado.setVisibility(pendiente ? View.VISIBLE : View.GONE);
-
-        if (pendiente) {
-            btnSolicitud.setEnabled(true);
-            btnSolicitud.setText(R.string.btn_cancel_request);
-            btnSolicitud.setTextColor(ContextCompat.getColor(this, R.color.white));
-            btnSolicitud.setBackgroundTintList(
-                    ContextCompat.getColorStateList(this, R.color.crew_orange));
-        } else if (plan.estaCompleto()) {
-            btnSolicitud.setEnabled(false);
-            btnSolicitud.setText(R.string.btn_plan_full);
-            btnSolicitud.setTextColor(ContextCompat.getColor(this, R.color.crew_gray));
-            btnSolicitud.setBackgroundTintList(
-                    ContextCompat.getColorStateList(this, R.color.crew_gray_light));
-        } else {
-            btnSolicitud.setEnabled(true);
-            btnSolicitud.setText(R.string.btn_request_join);
-            btnSolicitud.setTextColor(ContextCompat.getColor(this, R.color.white));
-            btnSolicitud.setBackgroundTintList(
-                    ContextCompat.getColorStateList(this, R.color.crew_teal));
-        }
+    // Abre Plan Details enviando el id del plan dentro de un Bundle
+    private void abrirDetalle(Plan plan) {
+        Intent intent = new Intent(this, PlanDetailActivity.class);
+        Bundle paquete = new Bundle();
+        paquete.putInt(PlanDetailActivity.EXTRA_PLAN_ID, plan.getId());
+        intent.putExtras(paquete);
+        startActivity(intent);
     }
 }
