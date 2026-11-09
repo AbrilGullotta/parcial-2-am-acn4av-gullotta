@@ -22,10 +22,8 @@
     <!-- Mensajes -->
     <string name="toast_request_sent">Request sent to %1$s</string>
     <string name="toast_request_cancelled">Request cancelled</string>
-    <!-- Tarjeta de ejemplo (después se generan desde Java) -->
-    <string name="sample_plan_title">🌅 Sunset + Picnic</string>
-    <string name="sample_plan_place_time">Burleigh Hill • Today 5:00 PM</string>
-    <string name="sample_plan_people">👥 5/8 people</string>
-    <string name="sample_plan_host">Hosted by Emma ★ 4.9</string>
     <string name="cd_plan_image">Plan photo</string>
+    <string name="place_time_format">%1$s • %2$s</string>
+    <string name="cost_format">$%1$d</string>
+    <string name="btn_plan_full">Plan full</string>
 </resources>
