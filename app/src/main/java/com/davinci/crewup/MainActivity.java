@@ -1,7 +1,9 @@
 package com.davinci.crewup;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -16,9 +18,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
+
 public class MainActivity extends AppCompatActivity {
 
     private LinearLayout containerCards;
+    private LinearLayout containerFilters;
+
+    // Categoría elegida en los filtros. null = todas
+    private String categoriaSeleccionada = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +42,87 @@ public class MainActivity extends AppCompatActivity {
         });
 
         containerCards = findViewById(R.id.containerCards);
+        containerFilters = findViewById(R.id.containerFilters);
     }
 
-    // onResume se ejecuta al abrir la pantalla y también al volver desde otra,
-    // así las tarjetas siempre muestran el estado actualizado
+    // onResume se ejecuta al abrir la pantalla y al volver desde otra,
+    // así filtros y tarjetas siempre muestran los datos actualizados
     @Override
     protected void onResume() {
         super.onResume();
+        crearFiltros();
+        actualizarFiltros();
         mostrarPlanes();
     }
+
+    // ---------- FILTROS (creados 100% desde Java) ----------
+
+    private void crearFiltros() {
+        containerFilters.removeAllViews();
+        agregarFiltro(getString(R.string.filter_all), null);
+
+        // Una categoría por cada tipo de plan existente, sin repetir
+        Set<String> categorias = new LinkedHashSet<>();
+        for (Plan plan : RepositorioPlanes.getPlanes()) {
+            categorias.add(plan.getCategoria());
+        }
+        for (String categoria : categorias) {
+            agregarFiltro(categoria, categoria);
+        }
+    }
+
+    private void agregarFiltro(String texto, String categoria) {
+        TextView chip = new TextView(this);
+        chip.setText(texto);
+        chip.setTag(categoria);
+        chip.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                getResources().getDimension(R.dimen.text_body));
+
+        int paddingH = getResources().getDimensionPixelSize(R.dimen.space_m);
+        int paddingV = getResources().getDimensionPixelSize(R.dimen.space_s);
+        chip.setPadding(paddingH, paddingV, paddingH, paddingV);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMarginEnd(getResources().getDimensionPixelSize(R.dimen.space_s));
+        chip.setLayoutParams(params);
+
+        chip.setOnClickListener(v -> {
+            categoriaSeleccionada = categoria;
+            actualizarFiltros();
+            mostrarPlanes();
+        });
+
+        containerFilters.addView(chip);
+    }
+
+    // Pinta de turquesa el filtro elegido y de blanco los demás
+    private void actualizarFiltros() {
+        for (int i = 0; i < containerFilters.getChildCount(); i++) {
+            TextView chip = (TextView) containerFilters.getChildAt(i);
+            boolean seleccionado = Objects.equals(chip.getTag(), categoriaSeleccionada);
+
+            chip.setBackgroundResource(seleccionado
+                    ? R.drawable.bg_filter_selected
+                    : R.drawable.bg_filter_unselected);
+            chip.setTextColor(ContextCompat.getColor(this,
+                    seleccionado ? R.color.white : R.color.crew_navy));
+            chip.setTypeface(null, seleccionado ? Typeface.BOLD : Typeface.NORMAL);
+        }
+    }
+
+    // ---------- TARJETAS ----------
 
     private void mostrarPlanes() {
         containerCards.removeAllViews();
         LayoutInflater inflater = getLayoutInflater();
+
         for (Plan plan : RepositorioPlanes.getPlanes()) {
+            if (categoriaSeleccionada != null
+                    && !categoriaSeleccionada.equals(plan.getCategoria())) {
+                continue; // no pertenece al filtro elegido
+            }
             View tarjeta = inflater.inflate(R.layout.item_plan, containerCards, false);
             completarTarjeta(tarjeta, plan);
             containerCards.addView(tarjeta);

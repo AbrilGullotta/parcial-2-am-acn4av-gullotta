@@ -71,6 +71,21 @@
                 android:text="@string/location_default"
                 android:textColor="@color/crew_gray"
                 android:textSize="@dimen/text_body" />
+            <HorizontalScrollView
+                android:id="@+id/scrollFilters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_m"
+                android:scrollbars="none">
+
+                <!-- Los filtros se crean desde Java -->
+                <LinearLayout
+                    android:id="@+id/containerFilters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
             <LinearLayout
                 android:id="@+id/containerCards"
                 android:layout_width="match_parent"
