@@ -37,4 +37,7 @@
     <string name="label_people">People</string>
     <string name="label_cost">Estimated cost</string>
     <string name="people_plain_format">%1$d/%2$d people</string>
+
+    <!-- Filtros -->
+    <string name="filter_all">All</string>
 </resources>

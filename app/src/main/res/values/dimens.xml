@@ -28,4 +28,7 @@
     <dimen name="detail_image_height">260dp</dimen>
     <dimen name="back_button_size">40dp</dimen>
     <dimen name="text_detail_title">24sp</dimen>
+
+    <!-- Filtros -->
+    <dimen name="filter_stroke">1dp</dimen>
 </resources>
