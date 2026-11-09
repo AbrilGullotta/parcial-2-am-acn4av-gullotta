@@ -62,4 +62,16 @@ public class Plan {
     public void setEstadoSolicitud(EstadoSolicitud estadoSolicitud) {
         this.estadoSolicitud = estadoSolicitud;
     }
+    public boolean tieneSolicitudPendiente() {
+        return estadoSolicitud == EstadoSolicitud.PENDIENTE;
+    }
+
+    // Envía o cancela la solicitud. No se puede pedir unirse a un plan completo.
+    public void alternarSolicitud() {
+        if (tieneSolicitudPendiente()) {
+            estadoSolicitud = EstadoSolicitud.NINGUNA;
+        } else if (!estaCompleto()) {
+            estadoSolicitud = EstadoSolicitud.PENDIENTE;
+        }
+    }
 }
