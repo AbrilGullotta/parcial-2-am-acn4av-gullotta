@@ -40,4 +40,29 @@
 
     <!-- Filtros -->
     <string name="filter_all">All</string>
+
+    <!-- Login / Registro -->
+    <string name="login_title">Welcome back</string>
+    <string name="login_subtitle">Log in to find your next plan.</string>
+    <string name="register_title">Join the crew</string>
+    <string name="register_subtitle">Create your account and start discovering plans.</string>
+    <string name="hint_name">Full name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm password</string>
+    <string name="btn_login">Log in</string>
+    <string name="btn_register">Create account</string>
+    <string name="btn_logout">Log out</string>
+    <string name="link_to_register">Don\'t have an account? Sign up</string>
+    <string name="link_to_login">Already have an account? Log in</string>
+    <string name="toast_welcome">Welcome, %1$s!</string>
+
+    <!-- Errores -->
+    <string name="error_required">This field is required</string>
+    <string name="error_email">Enter a valid email</string>
+    <string name="error_password_short">Password must have at least 6 characters</string>
+    <string name="error_password_match">Passwords don\'t match</string>
+    <string name="error_login">Wrong email or password</string>
+    <string name="error_email_in_use">This email is already registered</string>
+    <string name="error_generic">Something went wrong. Check your connection and try again.</string>
 </resources>

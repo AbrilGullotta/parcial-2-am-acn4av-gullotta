@@ -31,4 +31,8 @@
 
     <!-- Filtros -->
     <dimen name="filter_stroke">1dp</dimen>
+
+    <!-- Login / Registro -->
+    <dimen name="input_height">52dp</dimen>
+    <dimen name="login_image_height">200dp</dimen>
 </resources>
