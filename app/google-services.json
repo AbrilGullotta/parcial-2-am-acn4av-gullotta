@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "215546987291",
+    "project_id": "crewup-876e9",
+    "storage_bucket": "crewup-876e9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:215546987291:android:5f528743aaa4797a1c49be",
+        "android_client_info": {
+          "package_name": "com.davinci.crewup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAF6YFTdeBR2g5O80ZBg4ioJz4mKnUzbq4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
