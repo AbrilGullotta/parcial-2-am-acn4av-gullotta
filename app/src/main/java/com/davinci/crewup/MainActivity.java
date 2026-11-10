@@ -21,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
         containerCards = findViewById(R.id.containerCards);
         containerFilters = findViewById(R.id.containerFilters);
+        TextView txtLogout = findViewById(R.id.txtLogout);
+        txtLogout.setOnClickListener(v -> cerrarSesion());
     }
 
     // onResume se ejecuta al abrir la pantalla y al volver desde otra,
@@ -176,5 +179,13 @@ public class MainActivity extends AppCompatActivity {
         paquete.putInt(PlanDetailActivity.EXTRA_PLAN_ID, plan.getId());
         intent.putExtras(paquete);
         startActivity(intent);
+    }
+    // Cierra la sesión de Firebase y vuelve al Login
+    private void cerrarSesion() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }
