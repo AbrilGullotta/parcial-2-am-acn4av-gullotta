@@ -4,7 +4,9 @@
     <!-- Header -->
     <string name="slogan">Find the plan. Join the crew.</string>
     <string name="discover_question">What\'s happening near you?</string>
-    <string name="location_default">📍 Gold Coast, Australia</string>
+    <string name="location_default">📍 Finding your location…</string>
+    <string name="location_format">📍 %1$s, %2$s</string>
+    <string name="location_unavailable">📍 Location unavailable</string>
 
     <!-- Tarjeta de plan -->
     <string name="free">FREE</string>
